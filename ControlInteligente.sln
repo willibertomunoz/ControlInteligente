@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlInteligente", "ControlInteligente\ControlInteligente.csproj", "{9D0F0731-C6C3-45B0-AA48-3BAA113F509D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConexionArduino", "RFID\ConexionArduino.csproj", "{57004D60-61DB-4F88-8736-9AAC33EB3E3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9D0F0731-C6C3-45B0-AA48-3BAA113F509D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D0F0731-C6C3-45B0-AA48-3BAA113F509D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D0F0731-C6C3-45B0-AA48-3BAA113F509D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57004D60-61DB-4F88-8736-9AAC33EB3E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57004D60-61DB-4F88-8736-9AAC33EB3E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57004D60-61DB-4F88-8736-9AAC33EB3E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57004D60-61DB-4F88-8736-9AAC33EB3E3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
