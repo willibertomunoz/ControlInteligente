@@ -1,18 +1,18 @@
 ﻿using System;
 using System.IO.Ports;
 
-namespace ConexionArduino
+namespace ControlInteligente.Negocio
 {
     public class ComunicacionPuertoSerie
     {
         private static ComunicacionPuertoSerie instance = null;
 
-        protected SerialPort serialPort = new SerialPort();
+        protected SerialPort arduinoPort = new SerialPort();
         public string tarjeta;
 
         public static ComunicacionPuertoSerie Instance
         {
-            get
+                        get
             {
                 if (instance == null)
                     instance = new ComunicacionPuertoSerie();
@@ -23,17 +23,17 @@ namespace ConexionArduino
         protected ComunicacionPuertoSerie()
         {
             // Asignamos las propiedades
-            serialPort.BaudRate = 9600;
-            serialPort.PortName = "COM7";
+            arduinoPort.BaudRate = 9600;
+            arduinoPort.PortName = "COM7";
 
             // Creamos el evento
-            serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+            arduinoPort.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
 
             // Controlamos que el puerto indicado esté operativo
             try
             {
                 // Abrimos el puerto serie
-                serialPort.Open();
+                arduinoPort.Open();
             }
             catch (Exception e)
             {
@@ -48,14 +48,19 @@ namespace ConexionArduino
             //   SerialPort currentSerialPort = (SerialPort)sender;
 
             // Leemos el dato recibido del puerto serie
-                string inData = serialPort.ReadLine();
+            string inData = arduinoPort.ReadLine();
             switch (inData.Split(':')[0])
             {
                 case "Card UID":
                     tarjeta = inData.Split(':')[1];
-                    BusquedaUsuario.Instance();
+                    BusquedaUsuario.Instance().busqueda(tarjeta);
                     break;
             }
+        }
+
+        public void enviarEvento(string evento)
+        {
+            arduinoPort.Write(evento);
         }
     }
 }

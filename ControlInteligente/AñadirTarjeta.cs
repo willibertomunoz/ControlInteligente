@@ -1,15 +1,8 @@
-﻿using ConexionArduino;
+﻿
 using ControlInteligente.Negocio;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
+using System.Net.Mail;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ControlInteligente
@@ -41,6 +34,12 @@ namespace ControlInteligente
             if (string.IsNullOrWhiteSpace(textBox5.Text))
             {
                 MessageBox.Show("No se agregó una tarjeta RFID");
+                return;
+            }
+            if (!validarEmail(textBox4.Text))
+            {
+                MessageBox.Show("No se ha añadido un correo valido");
+                textBox4.BorderStyle = BorderStyle.Fixed3D;
             }
             else
             {
@@ -75,6 +74,14 @@ namespace ControlInteligente
                         {
                             if (!string.IsNullOrEmpty(ComunicacionPuertoSerie.Instance.tarjeta))
                             {
+                                if (BusquedaUsuario.Instance().busquedaTarjeta(ComunicacionPuertoSerie.Instance.tarjeta))
+                                {
+                                    textBox6.Text = "";
+                                    textBox5.Text = "";
+                                    ComunicacionPuertoSerie.Instance.tarjeta = "";
+                                    MessageBox.Show("Tarjeta ya registrada por otro usuario \nSe le ha notificado al usuario el uso de ella");
+                                    return;
+                                }
                                 if (textBox6.Text.Equals("Tarjeta registrada")
                                     && !textBox5.Text.Equals(ComunicacionPuertoSerie.Instance.tarjeta))
                                 {
@@ -101,6 +108,19 @@ namespace ControlInteligente
             {
                 MessageBox.Show("Detenido");
                 hilo.Abort();
+            }
+        }
+
+        bool validarEmail(string email)
+        {
+            try
+            {
+                new MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
             }
         }
     }

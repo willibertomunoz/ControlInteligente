@@ -1,14 +1,7 @@
-﻿using ConexionArduino;
+﻿
 using ControlInteligente.Negocio;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ControlInteligente
@@ -25,7 +18,10 @@ namespace ControlInteligente
             InitializeComponent();
             Comunicacion = ComunicacionPuertoSerie.Instance;
             Usuarios = new List<Usuario>();
+            BusquedaUsuario.Instance(Usuarios);
             validaAccesos = true;
+            hijo = new Tracking_face();
+            asignarPanelHijo(hijo);
         }
 
         private void registrarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,6 +53,23 @@ namespace ControlInteligente
         private void usuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             asignarPanelHijo(new VerUsuario());
+        }
+
+        private void trackingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (hijo != null)
+            {
+                hijo.Dispose();
+                hijo = null;
+            }
+            hijo = new Tracking_face();
+
+            asignarPanelHijo(hijo);
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
